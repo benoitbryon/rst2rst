@@ -1,0 +1,16 @@
+# Local binaries (they are generated).
+/bin/
+
+# Python files.
+*.pyc
+*.pyo
+*.egg-info
+
+# Libraries.
+/lib/
+
+# Documentation builds.
+/docs/_build/
+
+# Editor(s) temporary files.
+.*.swp
