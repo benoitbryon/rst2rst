@@ -4,7 +4,7 @@ Changelog for rst2rst
 
 
 ****************
-0.1 (unreleased)
+0.1 (2012-06-13)
 ****************
 
 * Proof of concept realease.
