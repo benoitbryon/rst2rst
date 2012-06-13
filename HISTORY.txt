@@ -1,0 +1,12 @@
+#####################
+Changelog for rst2rst
+#####################
+
+
+****************
+0.1 (unreleased)
+****************
+
+* Proof of concept realease.
+* Partial implementation of a docutils writer that produces RST output.
+* Introduced development material such as tests and releaser.

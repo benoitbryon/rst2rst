@@ -1,0 +1,2 @@
+recursive-include rst2rst *
+global-exclude *.pyc

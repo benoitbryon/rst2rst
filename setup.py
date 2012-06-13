@@ -12,18 +12,22 @@ def read_relative_file(filename):
 
 
 setup(name='rst2rst',
-      version=read_relative_file('version.txt'),  # Follow zest.releaser
-                                                  # convention.
+      version='0.1dev',
       description='Transform reStructuredText documents. Standardize RST syntax',
       long_description=read_relative_file('README.rst'),
-      classifiers=[
-        'Programming Language :: Python',
-        ],
+      classifiers=['Development Status :: 3 - Alpha',
+                   'License :: OSI Approved :: BSD License',
+                   'Programming Language :: Python :: 2.7',
+                   'Topic :: Documentation',
+                   'Topic :: Software Development :: Documentation',
+                   'Topic :: Software Development :: Quality Assurance',
+                   'Topic :: Text Processing',
+                   ],
       keywords='rst writer reStructuredText',
       author='Benoit Bryon',
       url='https://github.com/benoitbryon/rst2rst',
       license='BSD',
-      packages=find_packages('.', exclude=['ez_setup']),
+      packages=['rst2rst'],
       include_package_data=True,
       zip_safe=False,
       install_requires=['docutils'],
