@@ -1,18 +1,15 @@
-ROOT_DIR=$(PWD)
-
 install:
-	cd ${ROOT_DIR}
-	mkdir -p lib/buildout
-	wget http://svn.zope.org/*checkout*/zc.buildout/tags/1.5.2/bootstrap/bootstrap.py?content-type=text%2Fplain -O lib/buildout/bootstrap.py
-	python lib/buildout/bootstrap.py --distribute
+	@if [ ! -f lib/buildout/bootstrap.py ]; then \
+	    mkdir -p lib/buildout; \
+	    wget http://svn.zope.org/*checkout*/zc.buildout/tags/1.5.2/bootstrap/bootstrap.py?content-type=text%2Fplain -O lib/buildout/bootstrap.py; \
+	    python lib/buildout/bootstrap.py --distribute; \
+	fi
 	bin/buildout -N
 
-update:
-	bin/buildout -N
+update: install
 
 uninstall:
-	rm -r ${ROOT_DIR}/bin ${ROOT_DIR}/lib
+	rm -r bin/ lib/
 
 tests:
-	cd ${ROOT_DIR}
 	bin/nosetests -v --rednose --with-doctest --with-coverage --cover-erase --cover-package=rst2rst rst2rst/
