@@ -3,10 +3,15 @@ Changelog for rst2rst
 #####################
 
 
-****************
-0.1 (2012-06-13)
-****************
+0.2 (unreleased)
+================
 
-* Proof of concept realease.
-* Partial implementation of a docutils writer that produces RST output.
-* Introduced development material such as tests and releaser.
+- Nothing changed yet.
+
+
+0.1 (2012-06-13)
+================
+
+- Proof of concept realease.
+- Partial implementation of a docutils writer that produces RST output.
+- Introduced development material such as tests and releaser.
