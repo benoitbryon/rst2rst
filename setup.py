@@ -12,7 +12,7 @@ def read_relative_file(filename):
 
 
 setup(name='rst2rst',
-      version='0.1dev',
+      version=read_relative_file('version.txt').strip(),
       description='Transform reStructuredText documents. Standardize RST syntax',
       long_description=read_relative_file('README.rst'),
       classifiers=['Development Status :: 3 - Alpha',
