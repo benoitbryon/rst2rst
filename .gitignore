@@ -12,5 +12,8 @@
 # Documentation builds.
 /docs/_build/
 
+# Coverage output.
+/.coverage
+
 # Editor(s) temporary files.
 .*.swp

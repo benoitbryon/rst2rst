@@ -15,7 +15,7 @@ setup(name='rst2rst',
       version=read_relative_file('version.txt'),  # Follow zest.releaser
                                                   # convention.
       description='Transform reStructuredText documents. Standardize RST syntax',
-      long_description=read_relative_file('README.txt'),
+      long_description=read_relative_file('README.rst'),
       classifiers=[
         'Programming Language :: Python',
         ],

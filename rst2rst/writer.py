@@ -17,7 +17,6 @@ class Writer(writers.Writer):
     supported = ('txt')  # Formats this writer supports.
     config_section = 'rst writer'
     config_section_dependencies = ('writers',)
-    visitor_attributes = ('header', 'body', 'title', 'subtitle', 'footer')
 
     def __init__(self):
         writers.Writer.__init__(self)
@@ -26,53 +25,43 @@ class Writer(writers.Writer):
     def translate(self):
         self.visitor = visitor = self.translator_class(self.document)
         self.document.walkabout(visitor)
-        for attr in self.visitor_attributes:
-            setattr(self, attr, getattr(visitor, attr))
-        self.output = self.apply_template()
-
-    def apply_template(self):
-        template = u'%(header)s%(title)s%(subtitle)s%(body)s%(footer)s'
-        subs = self.interpolation_dict()
-        return template % subs
-
-    def interpolation_dict(self):
-        subs = {}
-        for attr in self.visitor_attributes:
-            subs[attr] = u''.join(getattr(self, attr)).rstrip('\n')
-        return subs
-
-    def assemble_parts(self):
-        writers.Writer.assemble_parts(self)
-        for part in self.visitor_attributes:
-            self.parts[part] = ''.join(getattr(self, part))
+        self.output = visitor.astext()
 
 
 class RSTTranslator(nodes.NodeVisitor):
     """RST writer."""
     def __init__(self, document):
         nodes.NodeVisitor.__init__(self, document)
-        self.section_level = 0
-        self.indentation_level = [0]
-        self.context = []
+        # Document parts.
         self.header = []
         self.title = []
         self.subtitle = []
         self.body = []
         self.footer = []
+        # Context helpers.
+        self.section_level = 0
+        self.indentation_level = [0]
+        self.spacer = ''  # Spacer is used to delay spacing between parts.
+                          # As an example, the spacer is not displayed at the
+                          # end of the document. The spacer is typically
+                          # applied on visit_*(), and assigned on depart_*().
+        self.context = []
 
     def astext(self):
-        return u''.join(self.head + self.title + self.subtitle + self.body
-                        + self.footer)
+        content = self.header + self.title + self.subtitle + self.body \
+                  + self.footer
+        return ''.join(content)
 
     def _wrap(self, text, indentation_level):
         """Wraps and indent text."""
-        line_length = 79
+        line_length = 80
         indent = u' ' * indentation_level
         wrapper = TextWrapper(width=line_length, initial_indent=indent,
                               subsequent_indent=indent)
         return wrapper.fill(text)
 
     def visit_Text(self, node):
+        self.body.append(self.spacer)
         text = node.astext()
         text = self._wrap(text, sum(self.indentation_level))
         self.body.append(text)
@@ -456,7 +445,8 @@ class RSTTranslator(nodes.NodeVisitor):
         pass
 
     def depart_paragraph(self, node):
-        self.body.append('\n\n')
+        self.body.append('\n')
+        self.spacer = '\n'
 
     def visit_problematic(self, node):
         pass
@@ -582,20 +572,23 @@ class RSTTranslator(nodes.NodeVisitor):
         pass
 
     def visit_title(self, node):
-        section_level = self.section_level - 1
-        title_chars = ['#', '*', '=', '-']
-        lines_before = [0, 2, 1, 1, 1, 1]
+        section_level = self.section_level
+        title_chars = ['#', '*', '=', '-', '^', '"']
+        lines_before = [0, 1, 0, 0, 0, 0]
         self.body.append('\n' * lines_before[section_level])
         is_overlined = section_level < 2
         if is_overlined:
+            self.body.append(self.spacer)
             overline = title_chars[section_level] * len(node.astext())
             self.body.append(overline + '\n')
+            self.spacer = ''
 
     def depart_title(self, node):
-        section_level = self.section_level - 1
-        title_chars = ['#', '*', '=', '-']
+        section_level = self.section_level
+        title_chars = ['#', '*', '=', '-', '^', '"']
         underline = title_chars[section_level] * len(node.astext())
-        self.body.append('\n' + underline + '\n\n')
+        self.body.append('\n' + underline)
+        self.spacer = '\n\n'
 
     def visit_title_reference(self, node):
         pass
