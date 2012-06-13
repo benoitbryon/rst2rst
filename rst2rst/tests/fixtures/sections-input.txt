@@ -1,0 +1,40 @@
+Test for sections (level 1)
+'''''''''''''''''''''''''''
+
+Sample text.
+
+Section 1 level 2
+-----------------
+
+Sample text.
+
+Section 2 level 3
+>>>>>>>>>>>>>>>>>
+
+Sample text.
+
+Section 3 level 2
+-----------------
+
+Sample text.
+
+Section 4 level 3
+>>>>>>>>>>>>>>>>>
+
+Sample text.
+
+*****************
+Section 5 level 4
+*****************
+
+Sample text.
+
+Section 6 level 5
+:::::::::::::::::
+
+Sample text.
+
+Section 7 level 6
+~~~~~~~~~~~~~~~~~
+
+Sample text.

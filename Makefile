@@ -7,5 +7,12 @@ install:
 	python lib/buildout/bootstrap.py --distribute
 	bin/buildout -N
 
+update:
+	bin/buildout -N
+
 uninstall:
 	rm -r ${ROOT_DIR}/bin ${ROOT_DIR}/lib
+
+tests:
+	cd ${ROOT_DIR}
+	bin/nosetests -v --rednose --with-doctest --with-coverage --cover-erase --cover-package=rst2rst rst2rst/
