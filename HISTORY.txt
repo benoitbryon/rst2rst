@@ -6,7 +6,7 @@ Changelog for rst2rst
 0.2 (unreleased)
 ================
 
-- Nothing changed yet.
+- Fixed packaging and distribution on PyPI.
 
 
 0.1 (2012-06-13)
