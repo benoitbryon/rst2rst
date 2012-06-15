@@ -46,13 +46,14 @@ class RSTTranslator(nodes.NodeVisitor):
                           # end of the document. The spacer is typically
                           # applied on visit_*(), and assigned on depart_*().
         self.context = []
+        self.buffer = []
 
     def astext(self):
         content = self.header + self.title + self.subtitle + self.body \
                   + self.footer
         return ''.join(content)
 
-    def _wrap(self, text, indentation_level):
+    def wrap(self, text, indentation_level):
         """Wraps and indent text."""
         line_length = 80
         indent = u' ' * indentation_level
@@ -60,20 +61,39 @@ class RSTTranslator(nodes.NodeVisitor):
                               subsequent_indent=indent)
         return wrapper.fill(text)
 
-    def visit_Text(self, node):
+    def indent(self, levels):
+        """Increase indentation level (push)."""
+        self.indentation_level.insert(levels, 0)
+
+    def dedent(self):
+        """Reduce indentation level (pop)."""
+        self.indentation_level.pop(0)
+
+    def write_buffer(self, text):
+        """Delay rendering."""
+        self.buffer.append(text)
+
+    def render_buffer(self):
+        """Append wrapped buffer to body."""
         self.body.append(self.spacer)
-        text = node.astext()
-        text = self._wrap(text, sum(self.indentation_level))
+        text = ''.join(self.buffer)
+        text = self.wrap(text, sum(self.indentation_level))
+        text += '\n'
         self.body.append(text)
+        self.buffer = []
+
+    def visit_Text(self, node):
+        text = node.astext()
+        self.write_buffer(text)
 
     def depart_Text(self, node):
         pass
 
     def visit_abbreviation(self, node):
-        pass
+        self.write_buffer(':abbreviation:`')
 
     def depart_abbreviation(self, node):
-        pass
+        self.write_buffer('`')
 
     def visit_acronym(self, node):
         pass
@@ -445,7 +465,7 @@ class RSTTranslator(nodes.NodeVisitor):
         pass
 
     def depart_paragraph(self, node):
-        self.body.append('\n')
+        self.render_buffer()
         self.spacer = '\n'
 
     def visit_problematic(self, node):
@@ -584,10 +604,11 @@ class RSTTranslator(nodes.NodeVisitor):
             self.spacer = ''
 
     def depart_title(self, node):
+        self.render_buffer()
         section_level = self.section_level
         title_chars = ['#', '*', '=', '-', '^', '"']
         underline = title_chars[section_level] * len(node.astext())
-        self.body.append('\n' + underline)
+        self.body.append(underline)
         self.spacer = '\n\n'
 
     def visit_title_reference(self, node):

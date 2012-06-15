@@ -30,6 +30,7 @@ class WriterTestCase(TestCase):
         input_filenames = glob(os.path.join(self.fixtures_dir, '*-input.txt'))
         if not input_filenames:
             self.fail('No fixtures found')
+        errors = []
         for input_filename in input_filenames:
             with open(input_filename) as input_file:
                 input_str = input_file.read()
@@ -45,14 +46,16 @@ class WriterTestCase(TestCase):
                 diff = []
                 real_output_lines = real_output.splitlines(True)
                 theoric_output_lines = theoric_output.splitlines(True)
-                for line in unified_diff(real_output_lines,
-                                         theoric_output_lines):
-                    diff.append(line)
-                diff = ''.join(diff)
+                lines = [line for line in unified_diff(real_output_lines,
+                                                       theoric_output_lines)]
+                diff = ''.join(lines)
                 msg = "Content generated from %s differs from content at %s" \
                       "\nDiff:\n%s" % (
                           input_filename,
                           output_filename,
                           diff
                       )
-                self.fail(msg)
+                errors.append(msg)
+        if errors:
+            self.fail('%d errors found.\n\n%s' % (len(errors),
+                                                      '\n\n'.join(errors)))

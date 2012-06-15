@@ -1,0 +1,29 @@
+This sample file validates that the wrap mechanism works as expected. As an
+example, the current line will be wrapped.
+
+Haec dum oriens diu perferret, caeli reserato tepore Constantius consulatu suo
+septies et Caesaris ter egressus Arelate Valentiam petit, in Gundomadum et
+Vadomarium fratres Alamannorum reges arma moturus, quorum crebris excursibus
+vastabantur confines limitibus terrae Gallorum.
+
+Iis igitur est difficilius satis facere, qui se Latina scripta dicunt
+contemnere. in quibus hoc primum est in quo admirer, cur in gravissimis rebus
+non delectet eos sermo patrius, cum idem fabellas Latinas ad verbum e Graecis
+expressas non inviti legant. quis enim tam inimicus paene nomini Romano est, qui
+Ennii Medeam aut Antiopam Pacuvii spernat aut reiciat, quod se isdem Euripidis
+fabulis delectari dicat, Latinas litteras oderit?
+
+123456789 123456789 123456789 123456789 123456789 123456789 123456789 1234567890
+Post quorum necem nihilo lenius ferociens Gallus ut leo cadaveribus pastus multa
+huius modi scrutabatur. quae singula narrare non refert, me professione modum,
+quod evitandum est, excedamus.
+
+Hac ita persuasione reducti intra moenia bellatores obseratis undique portarum
+aditibus, propugnaculis insistebant et pinnis, congesta undique saxa telaque
+habentes in promptu, ut si quis se proripuisset interius, multitudine missilium
+sterneretur et lapidum.
+
+Ideo urbs venerabilis post superbas efferatarum gentium cervices oppressas
+latasque leges fundamenta libertatis et retinacula sempiterna velut frugi parens
+et prudens et dives Caesaribus tamquam liberis suis regenda patrimonii iura
+permisit.
