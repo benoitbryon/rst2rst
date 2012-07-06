@@ -1,7 +1,7 @@
 # coding=utf-8
 """Python packaging."""
 import os
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 def read_relative_file(filename):
@@ -34,10 +34,8 @@ setup(name=NAME,
       url='https://github.com/benoitbryon/%s' % NAME,
       license='BSD',
       packages=[NAME],
-      package_data={'rst2rst': ['version.txt']},
-      include_package_data=True,
       zip_safe=False,
-      install_requires=['docutils'],
+      install_requires=['setuptools', 'docutils'],
       entry_points={
           'console_scripts': [
               'rst2rst = rst2rst.scripts.rst2rst:main',
