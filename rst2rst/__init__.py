@@ -1,9 +1,7 @@
-"""rst2rst."""
-import os
+"""rst2rst package."""
+from utils import LazyString, read_version
+from writer import Writer  # Required for docutils.core.publish_cmdline() to
+                           # find the writer matching "rst2rst".
 
-from writer import Writer
 
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
-__version__ = open(os.path.join(current_dir, 'version.txt')).read().strip()
-
+__version__ = LazyString(read_version)

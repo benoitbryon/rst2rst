@@ -11,15 +11,15 @@ class PEP396TestCase(TestCase):
     """Check's PEP 396 compliance, i.e. package's __version__ attribute."""
     def get_version(self):
         """Return rst2rst.__version__."""
-        try:
-            from rst2rst import __version__
-        except ImportError:
-            self.fail('rst2rst package has no attribute __version__.')
+        from rst2rst import __version__
         return __version__
 
     def test_version_present(self):
-        """Check that rst2rst.__version__ is a string."""
-        self.assertTrue(isinstance(self.get_version(), basestring))
+        """Check that rst2rst.__version__ exists."""
+        try:
+            version = self.get_version()
+        except ImportError:
+            self.fail('rst2rst package has no attribute __version__.')
 
     def test_version_match(self):
         """Check that rst2rst.__version__ matches pkg_resources information."""
