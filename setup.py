@@ -13,7 +13,7 @@ def read_relative_file(filename):
 
 NAME = 'rst2rst'
 README = read_relative_file('README.rst')
-VERSION = read_relative_file(os.path.join(NAME, 'version.txt').strip()
+VERSION = read_relative_file(os.path.join(NAME, 'version.txt')).strip()
 
 
 setup(name=NAME,
