@@ -34,6 +34,7 @@ setup(name=NAME,
       url='https://github.com/benoitbryon/%s' % NAME,
       license='BSD',
       packages=[NAME],
+      include_package_data=True,
       zip_safe=False,
       install_requires=['setuptools', 'docutils'],
       entry_points={
