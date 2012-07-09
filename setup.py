@@ -1,7 +1,7 @@
 # coding=utf-8
 """Python packaging."""
 import os
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 def read_relative_file(filename):
@@ -11,10 +11,15 @@ def read_relative_file(filename):
         return f.read()
 
 
-setup(name='rst2rst',
-      version=read_relative_file('version.txt').strip(),
+NAME = 'rst2rst'
+README = read_relative_file('README.rst')
+VERSION = read_relative_file(os.path.join(NAME, 'version.txt')).strip()
+
+
+setup(name=NAME,
+      version=VERSION,
       description='Transform reStructuredText documents. Standardize RST syntax',
-      long_description=read_relative_file('README.rst'),
+      long_description=README,
       classifiers=['Development Status :: 3 - Alpha',
                    'License :: OSI Approved :: BSD License',
                    'Programming Language :: Python :: 2.7',
@@ -26,12 +31,12 @@ setup(name='rst2rst',
       keywords='rst writer reStructuredText',
       author='Benoit Bryon',
       author_email='benoit@marmelune.net',
-      url='https://github.com/benoitbryon/rst2rst',
+      url='https://github.com/benoitbryon/%s' % NAME,
       license='BSD',
-      packages=['rst2rst'],
+      packages=[NAME],
       include_package_data=True,
       zip_safe=False,
-      install_requires=['docutils'],
+      install_requires=['setuptools', 'docutils'],
       entry_points={
           'console_scripts': [
               'rst2rst = rst2rst.scripts.rst2rst:main',
