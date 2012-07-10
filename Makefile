@@ -1,12 +1,12 @@
-install:
-	@if [ ! -f lib/buildout/bootstrap.py ]; then \
+develop:
+	if [ ! -f lib/buildout/bootstrap.py ]; then \
 	    mkdir -p lib/buildout; \
 	    wget http://svn.zope.org/*checkout*/zc.buildout/tags/1.5.2/bootstrap/bootstrap.py?content-type=text%2Fplain -O lib/buildout/bootstrap.py; \
 	    python lib/buildout/bootstrap.py --distribute; \
 	fi
 	bin/buildout -N
 
-update: install
+update: develop
 
 uninstall:
 	rm -r bin/ lib/
