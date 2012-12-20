@@ -16,19 +16,40 @@ from docutils.math.math2html import math2html
 class Options(object):
     """Options for rst to rst conversion."""
     def __init__(self):
-        #: List of symbols used to underline and overline titles.
-        #: List indices are "heading level - 1", i.e. at index 0 is the symbol
-        #: used to underline/overline "H1".
         self.title_chars = [u'#', u'*', u'=', u'-', u'^', u'"']
-        #: List of prefixes before title and overline (typically, blank lines).
-        #: Indices represent heading level.
+        """List of symbols used to underline and overline titles.
+
+        List indices are "heading level - 1", i.e. at index 0 is the symbol
+        used to underline/overline "H1".
+
+        """
+
         self.title_prefix = [u'', u'\n', u'', u'', u'', u'']
-        #: List of suffixes after title and underline (typically, blank lines).
-        #: Indices represent heading level.
+        """List of prefixes before title and overline (typically, blank lines).
+
+        Indices represent heading level.
+
+        """
+
         self.title_suffix = [u'\n\n'] * 6
-        #: List of booleans specifying whether to overline the title or not.
-        #: List indices represent heading level.
+        """List of suffixes after title and underline (typically, blank lines).
+
+        Indices represent heading level.
+
+        """
+
         self.title_overline = [True, True, False, False, False, False]
+        """List of booleans specifying whether to overline the title or not.
+
+        List indices represent heading level.
+
+        """
+
+        self.indentation_char = u' '
+        """Character used for indentation."""
+
+        self.blockquote_indent = 2
+        """Indentation level for blockquotes."""
 
 
 class Writer(writers.Writer):
@@ -52,30 +73,64 @@ class RSTTranslator(nodes.NodeVisitor):
     def __init__(self, document, options):
         self.options = options
         nodes.NodeVisitor.__init__(self, document)
+
         # Document parts.
         self.header = []
         self.title = []
         self.subtitle = []
         self.body = []
         self.footer = []
+
         # Context helpers.
         self.section_level = 0
-        self.indentation_level = [0]
+        """Current section/title level, starting at 0.
+
+        Section level is incremented/decremented during :py:meth:`visit_title`
+        and :py:meth:`depart_title`.
+
+        """
+
+        self._indentation_levels = [0]
+        """Stack of current indentation level.
+
+        See also :py:attr:`indentation_level`, :py:meth:`indent` and
+        :py:meth:`dedent`.
+
+        """
+
         self.spacer = ''  # Spacer is used to delay spacing between parts.
                           # As an example, the spacer is not displayed at the
                           # end of the document. The spacer is typically
                           # applied on visit_*(), and assigned on depart_*().
         self.context = []
 
+    @property
+    def indentation(self):
+        """Return current indentation as unicode."""
+        return self.options.indentation_char * sum(self._indentation_levels)
+
+    @property
+    def indentation_level(self):
+        """Return current indentation level."""
+        return self._indentation_levels[-1]
+
+    def indent(self, levels):
+        """Increase indentation by ``levels`` levels."""
+        self._indentation_levels.append(levels)
+
+    def dedent(self):
+        """Decrease indentation by ``levels`` levels."""
+        return self._indentation_levels.pop()
+
     def astext(self):
         content = self.header + self.title + self.subtitle + self.body \
-                  + self.footer
+            + self.footer
         return ''.join(content)
 
     def _wrap(self, text, indentation_level):
         """Wraps and indent text."""
         line_length = 80
-        indent = u' ' * indentation_level
+        indent = self.indentation
         wrapper = TextWrapper(width=line_length, initial_indent=indent,
                               subsequent_indent=indent)
         return wrapper.fill(text)
@@ -83,7 +138,7 @@ class RSTTranslator(nodes.NodeVisitor):
     def visit_Text(self, node):
         self.body.append(self.spacer)
         text = node.astext()
-        text = self._wrap(text, sum(self.indentation_level))
+        text = self._wrap(text, self.indentation)
         self.body.append(text)
 
     def depart_Text(self, node):
@@ -132,10 +187,11 @@ class RSTTranslator(nodes.NodeVisitor):
         pass
 
     def visit_block_quote(self, node):
-        pass
+        self.indent(self.options.blockquote_indent)
+
 
     def depart_block_quote(self, node):
-        pass
+        self.dedent()
 
     def visit_bullet_list(self, node):
         pass

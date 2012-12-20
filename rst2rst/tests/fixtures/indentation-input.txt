@@ -1,0 +1,21 @@
+In reStructuredText specification, there is no convention about indentation.
+
+  It means indentation with 2 spaces is valid.
+
+    A block indented with 4 spaces right after one indented with 2 spaces is a
+    nested (2nd level) indent.
+
+But,
+
+    A block indented with 4 spaces right after a "root" text block is a 1st
+    level indent.
+
+And,
+
+                                                 Even some exotic indentation
+                                                 is valid.
+
+It makes the document harder to read.
+
+rst2rst makes it possible to standardize indentation: in a given situation,
+always use the same indentation rules.
