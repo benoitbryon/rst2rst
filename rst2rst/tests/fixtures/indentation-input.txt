@@ -15,7 +15,20 @@ And,
                                                  Even some exotic indentation
                                                  is valid.
 
-It makes the document harder to read.
+And,
+
+	Mixed (tabs/spaces) indentation is allowed.
+
+And,
+
+	  You can even mix spaces and tabs in a block!
+
+It makes the document harder to read. You can't guess the meaning of some block
+by just looking at it's own indentation: you have to look at the indentation of
+the context (i.e. its parents).
 
 rst2rst makes it possible to standardize indentation: in a given situation,
 always use the same indentation rules.
+
+As an example, by default (i.e. as a convention) every blockquote is indented
+with 2 spaces. So a blockquote with 4 spaces is a nested indent.
