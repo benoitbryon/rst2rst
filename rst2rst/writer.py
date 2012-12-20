@@ -13,6 +13,24 @@ from docutils.math.latex2mathml import parse_latex_math
 from docutils.math.math2html import math2html
 
 
+class Options(object):
+    """Options for rst to rst conversion."""
+    def __init__(self):
+        #: List of symbols used to underline and overline titles.
+        #: List indices are "heading level - 1", i.e. at index 0 is the symbol
+        #: used to underline/overline "H1".
+        self.title_chars = [u'#', u'*', u'=', u'-', u'^', u'"']
+        #: List of prefixes before title and overline (typically, blank lines).
+        #: Indices represent heading level.
+        self.title_prefix = [u'', u'\n', u'', u'', u'', u'']
+        #: List of suffixes after title and underline (typically, blank lines).
+        #: Indices represent heading level.
+        self.title_suffix = [u'\n\n'] * 6
+        #: List of booleans specifying whether to overline the title or not.
+        #: List indices represent heading level.
+        self.title_overline = [True, True, False, False, False, False]
+
+
 class Writer(writers.Writer):
     supported = ('txt')  # Formats this writer supports.
     config_section = 'rst writer'
@@ -21,16 +39,18 @@ class Writer(writers.Writer):
     def __init__(self):
         writers.Writer.__init__(self)
         self.translator_class = RSTTranslator
+        self.options = Options()
 
     def translate(self):
-        self.visitor = visitor = self.translator_class(self.document)
-        self.document.walkabout(visitor)
-        self.output = visitor.astext()
+        self.visitor = self.translator_class(self.document, self.options)
+        self.document.walkabout(self.visitor)
+        self.output = self.visitor.astext()
 
 
 class RSTTranslator(nodes.NodeVisitor):
     """RST writer."""
-    def __init__(self, document):
+    def __init__(self, document, options):
+        self.options = options
         nodes.NodeVisitor.__init__(self, document)
         # Document parts.
         self.header = []
@@ -572,23 +592,21 @@ class RSTTranslator(nodes.NodeVisitor):
         pass
 
     def visit_title(self, node):
-        section_level = self.section_level
-        title_chars = ['#', '*', '=', '-', '^', '"']
-        lines_before = [0, 1, 0, 0, 0, 0]
-        self.body.append('\n' * lines_before[section_level])
-        is_overlined = section_level < 2
+        self.body.append(self.options.title_prefix[self.section_level])
+        is_overlined = self.options.title_overline[self.section_level]
         if is_overlined:
             self.body.append(self.spacer)
-            overline = title_chars[section_level] * len(node.astext())
+            symbol = self.options.title_chars[self.section_level]
+            overline = symbol * len(node.astext())
             self.body.append(overline + '\n')
             self.spacer = ''
 
     def depart_title(self, node):
         section_level = self.section_level
-        title_chars = ['#', '*', '=', '-', '^', '"']
-        underline = title_chars[section_level] * len(node.astext())
+        symbol = self.options.title_chars[section_level]
+        underline = symbol * len(node.astext())
         self.body.append('\n' + underline)
-        self.spacer = '\n\n'
+        self.spacer = self.options.title_suffix[self.section_level]
 
     def visit_title_reference(self, node):
         pass

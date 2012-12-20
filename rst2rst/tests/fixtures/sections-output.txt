@@ -2,7 +2,16 @@
 Test for sections (level 1)
 ###########################
 
-Sample text.
+One problem with titles in reStructuredText specification is that there is no
+conventions for titles. In this test, we set titles using custom symbols,
+overlines, spacing and overline/underline length. It makes the document
+difficult to read. Moreover, you must read the beginning of the document in
+order to understand the meaning of overlines/underlines somewhere in the
+document, i.e. you can't guess the heading level without knowing its parents.
+
+rst2rst makes it possible to standardize titles.
+
+Isn't the test output easier to read?
 
 
 *****************
@@ -28,10 +37,10 @@ Section 4 level 3
 
 Sample text.
 
-Section 5 level 4
------------------
+Section 5, can you guess the level?
+-----------------------------------
 
-Sample text.
+It's level 4!
 
 Section 6 level 5
 ^^^^^^^^^^^^^^^^^
