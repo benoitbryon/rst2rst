@@ -51,6 +51,8 @@ class Options(object):
         self.blockquote_indent = 2
         """Indentation level for blockquotes."""
 
+        self.wrap_length = 79
+
 
 class Writer(writers.Writer):
     supported = ('txt')  # Formats this writer supports.
@@ -129,7 +131,7 @@ class RSTTranslator(nodes.NodeVisitor):
 
     def _wrap(self, text, indentation_level):
         """Wraps and indent text."""
-        line_length = 80
+        line_length = self.options.wrap_length
         indent = self.indentation
         wrapper = TextWrapper(width=line_length, initial_indent=indent,
                               subsequent_indent=indent)

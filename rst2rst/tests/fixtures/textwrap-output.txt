@@ -1,0 +1,13 @@
+In reStructuredText specification, there is no convention about text wrapping
+so you can write small lines and nothing prevents you to write extremely long
+lines like the following:
+
+lorem ipsum dolor sit amet and some text randomly generated whatever it doesn't
+matters. One two three four five six seven eight nine ten eleven twelve.
+
+rst2rst provides text wrapping.
+
+Default line length is ................ exactly ................ 79 characters.
+
+  And indented text is wrapped to exactly 79 characters too. This is a test...
+  Wrapping should just begin on the W.
