@@ -100,11 +100,16 @@ class RSTTranslator(nodes.NodeVisitor):
 
         """
 
-        self.spacer = ''  # Spacer is used to delay spacing between parts.
-                          # As an example, the spacer is not displayed at the
-                          # end of the document. The spacer is typically
-                          # applied on visit_*(), and assigned on depart_*().
-        self.context = []
+        self.spacer = ''
+        """Buffer (string) that is to be inserted between two elements.
+
+        The spacer isn't always inserted. As an example, it is not inserted at
+        the end of the document.
+
+        The spacer is typically assigned on depart_*() and inserted on next
+        element's visit_*().
+
+        """
 
     @property
     def indentation(self):
