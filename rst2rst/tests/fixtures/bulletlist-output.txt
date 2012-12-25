@@ -6,9 +6,9 @@ In reStructuredText specification, there is no strict convention about bullet
 lists.
 
 
-**********
-Characters
-**********
+*****************
+Bullet characters
+*****************
 
 You can use any allowed characters as first-level bullets.
 
@@ -38,6 +38,24 @@ This applies to nested lists too.
 ***********
 Indentation
 ***********
+
+reStructuredText specification permits various indentation.
+
+* 1 space between bullet and text is valid.
+
+And,
+
+* 2 spaces between bullet and text is valid too.
+
+And,
+
+* 3 spaces between bullet and text is valid too. The more spaces, the less
+  readable.
+
+And,
+
+* bullets indented with an exotic number of spaces (as an example, 42 spaces)
+  is still valid!
 
 
 *******

@@ -104,7 +104,7 @@ class RSTTranslator(nodes.NodeVisitor):
 
         """
 
-        self._indent_first_line = [0]
+        self._indent_first_line = [u'']
 
         self.spacer = ''
         """Buffer (string) that is to be inserted between two elements.
@@ -128,7 +128,10 @@ class RSTTranslator(nodes.NodeVisitor):
     @property
     def initial_indentation(self):
         """Return current first-line indentation as unicode."""
-        return self.options.indentation_char * sum(self._indent_first_line)
+        if self._indent_first_line[-1] is None:
+            return self.indentation
+        else:
+            return self._indent_first_line[-1]
 
     @property
     def indentation_level(self):
@@ -137,8 +140,6 @@ class RSTTranslator(nodes.NodeVisitor):
 
     def indent(self, levels, first_line=None):
         """Increase indentation by ``levels`` levels."""
-        if first_line is None:
-            first_line = levels
         self._indentation_levels.append(levels)
         self._indent_first_line.append(first_line)
 
@@ -242,9 +243,7 @@ class RSTTranslator(nodes.NodeVisitor):
         self.list_level -= 1
 
     def visit_list_item(self, node):
-        self.body.append(self.indentation)
-        self.body.append('%s ' % self.bullet_character)
-        self.indent(2, 0)
+        self.indent(2, '%s%s ' % (self.indentation, self.bullet_character))
         self.spacer = ''
 
     def depart_list_item(self, node):
