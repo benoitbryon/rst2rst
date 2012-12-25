@@ -134,18 +134,25 @@ class RSTTranslator(nodes.NodeVisitor):
             + self.footer
         return ''.join(content)
 
-    def wrap(self, text, indentation_level):
-        """Wraps and indent text."""
-        line_length = self.options.wrap_length
-        indent = self.indentation
-        wrapper = TextWrapper(width=line_length, initial_indent=indent,
+    def wrap(self, text, width=None, indent=None):
+        """Return ``text`` wrapped to ``width`` and indented with ``indent``.
+
+        By default:
+
+        * ``width`` is ``self.options.wrap_length``
+        * ``indent`` is ``self.indentation``.
+
+        """
+        width = width if width is not None else self.options.wrap_length
+        indent = indent if indent is not None else self.indentation
+        wrapper = TextWrapper(width=width, initial_indent=indent,
                               subsequent_indent=indent)
         return wrapper.fill(text)
 
     def visit_Text(self, node):
         self.body.append(self.spacer)
         text = node.astext()
-        text = self.wrap(text, self.indentation)
+        text = self.wrap(text)
         self.body.append(text)
 
     def depart_Text(self, node):
