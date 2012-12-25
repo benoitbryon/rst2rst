@@ -58,6 +58,17 @@ And,
                                             number of spaces (as an example,
                                             42 spaces) is still valid!
 
+As a result,
+
+*       You can have 1st level content
+
+  *     Where text is left aligned with content of 2nd level blocks
+
+    *   or
+
+      * more... It doesn't improve document's readability.
+
+
 *******
 Spacing
 *******
