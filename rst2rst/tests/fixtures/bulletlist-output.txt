@@ -1,0 +1,53 @@
+############
+Bullet lists
+############
+
+In reStructuredText specification, there is no strict convention about bullet
+lists.
+
+
+**********
+Characters
+**********
+
+You can use any allowed characters as first-level bullets.
+
+Asterisks are recognized as bullets:
+
+* first item.
+* second item.
+
+Minus sign is also recognized as bullets:
+
+* first item.
+* second item.
+
+This applies to nested lists too.
+
+* asterisk as first level.
+
+  * minus as second level.
+
+... means the same as:
+
+* minus as first level.
+
+  * asterisk as second level.
+
+
+***********
+Indentation
+***********
+
+
+*******
+Spacing
+*******
+
+You can use an arbitrary number of empty lines between each list item.
+
+* Zero empty lines,
+* One empty line,
+* Two empty lines,
+* Or more,
+* ... the bullet list is valid.
