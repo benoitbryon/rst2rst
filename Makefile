@@ -12,7 +12,7 @@ uninstall:
 	rm -r bin/ lib/
 
 tests:
-	bin/nosetests -v --rednose --with-doctest --with-coverage --cover-erase --cover-package=rst2rst rst2rst/
+	bin/nosetests -v --rednose --with-doctest --with-coverage --cover-erase --nocapture --cover-package=rst2rst rst2rst/
 
 release:
 	bin/fullrelease
