@@ -46,7 +46,11 @@ class Options(object):
         """
 
         self.indentation_char = u' '
-        """Character used for indentation."""
+        """Character used for indentation.
+
+        Should be space or tab. Default is space.
+
+        """
 
         self.blockquote_indent = 2
         """Indentation level for blockquotes."""
