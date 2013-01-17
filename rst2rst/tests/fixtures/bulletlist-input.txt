@@ -93,3 +93,52 @@ You can use an arbitrary number of empty lines between each list item.
 
 
 * ... the bullet list is valid.
+
+Moreover,
+
+* when several list items span over multiple lines, it becomes quite difficult
+  to visually identify the paragraphs if there is no space, or no consistent
+  spacing. In order to illustrate this, let's generate some long sentences...
+* One two three four five six seven eight nine ten eleven twelve thirteen one
+  fourteen two fifteen three sixteen four seventeen five eighteen six nineteen
+  seven twenty one two three four five six seven eight nine ten eleven twelve
+  thirteen one fourteen two fifteen three sixteen four seventeen five eighteen.
+* Two two three four five six seven eight nine ten eleven twelve thirteen one
+  fourteen two fifteen three sixteen four seventeen five eighteen six nineteen
+  seven twenty one two three four five six seven eight nine ten eleven twelve
+  thirteen one fourteen two fifteen three sixteen four seventeen five eighteen.
+* Three two three four five six seven eight nine ten eleven twelve thirteen one
+  fourteen two fifteen three sixteen four seventeen five eighteen six nineteen
+  seven twenty one two three four five six seven eight nine ten eleven twelve
+  thirteen one fourteen two fifteen three sixteen four seventeen five eighteen.
+* Four two three four five six seven eight nine ten eleven twelve thirteen one
+  fourteen two fifteen three sixteen four seventeen five eighteen six nineteen
+  seven twenty one two three four five six seven eight nine ten eleven twelve
+  thirteen one fourteen two fifteen three sixteen four seventeen five eighteen.
+
+  Five two three four five six seven eight nine ten eleven twelve thirteen one
+  fourteen two fifteen three sixteen four seventeen five eighteen six nineteen
+  seven twenty one two three four five six seven eight nine ten eleven twelve
+  thirteen one fourteen two fifteen three sixteen four seventeen five eighteen.
+* Six two three four five six seven eight nine ten eleven twelve thirteen one
+  fourteen two fifteen three sixteen four seventeen five eighteen six nineteen
+  seven twenty one two three four five six seven eight nine ten eleven twelve
+  thirteen one fourteen two fifteen three sixteen four seventeen five eighteen.
+
+* Seven two three four five six seven eight nine ten eleven twelve thirteen one
+  fourteen two fifteen three sixteen four seventeen five eighteen six nineteen
+  seven twenty one two three four five six seven eight nine ten eleven twelve
+  thirteen one fourteen two fifteen three sixteen four seventeen five eighteen.
+* Eight two three four five six seven eight nine ten eleven twelve thirteen one
+  fourteen two fifteen three sixteen four seventeen five eighteen six nineteen
+  seven twenty one two three four five six seven eight nine ten eleven twelve
+  thirteen one fourteen two fifteen three sixteen four seventeen five eighteen.
+* Nine two three four five six seven eight nine ten eleven twelve thirteen one
+  fourteen two fifteen three sixteen four seventeen five eighteen six nineteen
+  seven twenty one two three four five six seven eight nine ten eleven twelve
+  thirteen one fourteen two fifteen three sixteen four seventeen five eighteen.
+
+* Ten two three four five six seven eight nine ten eleven twelve thirteen one
+  fourteen two fifteen three sixteen four seventeen five eighteen six nineteen
+  seven twenty one two three four five six seven eight nine ten eleven twelve
+  thirteen one fourteen two fifteen three sixteen four seventeen five eighteen.
