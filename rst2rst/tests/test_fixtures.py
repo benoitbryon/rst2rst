@@ -72,13 +72,12 @@ class WriterTestCase(TestCase):
             if real_output != theoric_output:
                 theoric_output = theoric_output.replace('\n', '\\n\n')
                 real_output = real_output.replace('\n', '\\n\n')
-                diff = []
+
                 real_output_lines = real_output.splitlines(True)
                 theoric_output_lines = theoric_output.splitlines(True)
-                for line in unified_diff(real_output_lines,
-                                         theoric_output_lines):
-                    diff.append(line)
-                diff = ''.join(diff)
+
+                diff = ''.join(unified_diff(real_output_lines,
+                                            theoric_output_lines))
                 msg = "Content generated from %s differs from content at %s" \
                       "\nDiff:\n%s" % (
                           input_filename,
