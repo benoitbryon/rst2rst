@@ -76,8 +76,8 @@ class WriterTestCase(TestCase):
                 real_output_lines = real_output.splitlines(True)
                 theoric_output_lines = theoric_output.splitlines(True)
 
-                diff = ''.join(unified_diff(real_output_lines,
-                                            theoric_output_lines))
+                diff = ''.join(unified_diff(theoric_output_lines,
+                                            real_output_lines))
                 msg = "Content generated from %s differs from content at %s" \
                       "\nDiff:\n%s" % (
                           input_filename,
