@@ -1,45 +1,19 @@
-"""rst2rst tests."""
+# -*- coding: utf-8 -*-
+"""Tests around fixtures: check behaviour obtained with sample files."""
 from difflib import unified_diff
 import os
 import re
-from unittest import TestCase
+import unittest
 
 from docutils.core import publish_string
 
-
-class PEP396TestCase(TestCase):
-    """Check's PEP 396 compliance, i.e. package's __version__ attribute."""
-    def get_version(self):
-        """Return rst2rst.__version__."""
-        from rst2rst import __version__
-        return __version__
-
-    def test_version_present(self):
-        """Check that rst2rst.__version__ exists."""
-        try:
-            version = self.get_version()
-        except ImportError:
-            self.fail('rst2rst package has no attribute __version__.')
-
-    def test_version_match(self):
-        """Check that rst2rst.__version__ matches pkg_resources information."""
-        try:
-            import pkg_resources
-        except ImportError:
-            self.fail('Cannot import pkg_resources module. It is part of ' \
-                      'setuptools, which is a dependency of rst2rst.')
-        installed_version = pkg_resources.get_distribution('rst2rst').version
-        self.assertEqual(installed_version, self.get_version(),
-                         'Version mismatch: version.txt tells "%s" whereas ' \
-                         'pkg_resources tells "%s". ' \
-                         'YOU MAY NEED TO RUN ``make update`` to update the ' \
-                         'installed version in development environment.' \
-                         % (self.get_version(), installed_version))
 
 FILE_DIR = os.path.normpath(
     os.path.abspath(
         os.path.dirname(__file__)))
 FIXTURES_DIR = os.path.join(FILE_DIR, 'fixtures')
+
+
 class TestMeta(type):
     """ Unittest is a pain in the ass: it calls dir() on the *class*,
     and then goes and gets each found method (on the class again) to
@@ -65,9 +39,11 @@ class TestMeta(type):
 
         return lambda: None
 
-class WriterTestCase(TestCase):
-    __metaclass__ = TestMeta
+
+class WriterTestCase(unittest.TestCase):
     """Test suite for the rst2rst.writer.Writer class."""
+    __metaclass__ = TestMeta
+
     @classmethod
     def _fixture_methods(cls):
         """ Lists the names of all fixtures in the ./fixtures
@@ -80,6 +56,7 @@ class WriterTestCase(TestCase):
             for f in os.listdir(FIXTURES_DIR)
             if f.endswith('-input.txt')
         ]
+
     @classmethod
     def _fixture_paths(cls, attrname):
         """ For a fixture named $fixture, gets the corresponding
@@ -91,7 +68,7 @@ class WriterTestCase(TestCase):
                 cls.__name__, attrname))
 
         fixture = attrname.replace('test_', '', 1)
-        
+
         fixture_input = '%s-input.txt' % fixture
         input_path = os.path.join(FIXTURES_DIR, fixture_input)
         if not os.path.exists(input_path):
@@ -128,11 +105,9 @@ class WriterTestCase(TestCase):
 
             diff = ''.join(unified_diff(expected_lines, output_lines))
             msg = "Content generated from %s differs from content at %s" \
-            "\nDiff:\n%s" % (
-                os.path.basename(fixture_input),
-                os.path.basename(fixture_expectation),
-                diff
-            )
+                  "\nDiff:\n%s" % (os.path.basename(fixture_input),
+                                   os.path.basename(fixture_expectation),
+                                   diff)
             self.fail(msg)
 
     def test_repeatability(self):

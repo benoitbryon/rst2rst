@@ -50,7 +50,7 @@ test: test-app
 
 
 test-app:
-	$(NOSE) --config=etc/nose.cfg --with-doctest --with-coverage --cover-erase --cover-package=rst2rst rst2rst
+	$(NOSE) --config=etc/nose.cfg $(PROJECT)
 
 
 release:
