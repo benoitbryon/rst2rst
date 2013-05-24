@@ -1,4 +1,5 @@
-"""Various utilities."""
+# -*- coding: utf-8 -*-
+"""Tools not specific to rst2rst. They could be moved in external projects."""
 import os
 
 
@@ -52,9 +53,9 @@ class LazyString(object):
 
 def read_relative_file(filename, relative_to=None):
     """Returns contents of the given file, which path is supposed relative
-    to this module."""
+    to this package."""
     if relative_to is None:
-        relative_to = __file__
+        relative_to = os.path.dirname(__file__)
     with open(os.path.join(os.path.dirname(relative_to), filename)) as f:
         return f.read()
 
