@@ -7,6 +7,8 @@ import unittest
 
 from docutils.core import publish_string
 
+from rst2rst.utils.tempdir import temporary_directory
+
 
 #: Absolute path to ``rst2rst.tests`` module.
 TESTS_DIR = os.path.normpath(os.path.abspath(os.path.dirname(__file__)))
@@ -24,11 +26,35 @@ def fixture_names(fixture_dir=FIXTURE_DIR):
     Fixture names are computed from filenames in ``fixture_dir``.
 
     """
-    return sorted([
-        re.sub(r'^(.+?)-input\.txt$', r'\1', f)
+    return [
+        re.match(r'^(.+?)-input\.txt$', f).group(1)
         for f in os.listdir(fixture_dir)
         if f.endswith('-input.txt')
-    ])
+    ]
+
+
+class FixturesNamesTestCase(unittest.TestCase):
+    """:py:func:`fixture_names` return list of fixture names in directory."""
+    def test_capture(self):
+        """fixture_names() grabs all *-input.txt file in a directory."""
+        filenames = ('one.txt',
+                     'two-input.txt',
+                     'threeinput.txt',
+                     'four-five-six-input.txt',
+                     'seven-output.txt',
+                     'eight-input',
+                     'nine-input.rst',
+                     'ten_input.txt')
+        expected_names = ['two', 'four-five-six']  # Order does not matter.
+        with temporary_directory() as directory:
+            for filename in filenames:  # Create the files.
+                open(os.path.join(directory, filename), 'w').write('fake')
+            names = fixture_names(directory)
+        self.assertEqual(sorted(names), sorted(expected_names))
+
+    def test_not_empty(self):
+        """fixture_names() actually finds some fixtures."""
+        self.assertTrue(fixture_names())
 
 
 def fixture_method(name):
