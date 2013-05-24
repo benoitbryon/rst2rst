@@ -2,7 +2,7 @@
 
 __docformat__ = 'reStructuredText'
 
-from textwrap import TextWrapper
+import textwrap
 
 import docutils
 from docutils import frontend, nodes, utils, writers, languages, io
@@ -180,10 +180,9 @@ class RSTTranslator(nodes.NodeVisitor):
         width = width if width is not None else self.options.wrap_length
         indent = indent if indent is not None else self.indentation
         initial_indent = self.initial_indentation
-        wrapper = TextWrapper(width=width,
-                              initial_indent=initial_indent,
-                              subsequent_indent=indent)
-        return wrapper.fill(text)
+        return textwrap.fill(text, width=width,
+                             initial_indent=initial_indent,
+                             subsequent_indent=indent)
 
     def visit_Text(self, node):
         self.body.append(self.spacer)
